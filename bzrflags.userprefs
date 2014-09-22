@@ -1,0 +1,16 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="bzrflags/TelnetConnection.cs">
+    <Files>
+      <File FileName="bzrflags/Main.cs" Line="11" Column="1" />
+      <File FileName="bzrflags/TelnetConnection.cs" Line="34" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/users/grads/z/zanna/bzrflags/bzrflags/Main.cs" line="11" />
+      <Breakpoint file="/users/grads/z/zanna/bzrflags/bzrflags/TelnetConnection.cs" line="32" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
