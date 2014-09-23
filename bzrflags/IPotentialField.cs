@@ -19,7 +19,7 @@ namespace bzrflags
 			_strength = 1.0;
 		}
 		
-		public virtual Vector GetVectorForMapPoint(float x, float y)
+		public virtual Vector GetVectorForMapPoint(double x, double y)
 		{
 			return new Vector(0.0, 0.0);
 		}

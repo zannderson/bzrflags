@@ -1,6 +1,9 @@
 using System;
 using System.Timers;
 
+namespace bzrflags
+{
+
 class dummyAgent
 {
 
@@ -9,8 +12,8 @@ class dummyAgent
 
         public void runAgent()
         {
-                connection = new TelnetConnection();
-                connection.Connect(41665);
+                //connection = new TelnetConnection();
+                //connection.Connect(41665);
                 connection.ReceiveMessage();
                 string response = connection.SendMessage("agent 1");
 
@@ -31,13 +34,13 @@ class dummyAgent
 
                         connection.SendMessage("speed 0 1");
                         Console.Out.WriteLine(connection.ReceiveMessage());
-                        WaitForSeconds(timeToWait);
+                        //WaitForSeconds(timeToWait);
                         connection.SendMessage("speed 0 0");
                         Console.Out.WriteLine(connection.ReceiveMessage());
 
                         connection.SendMessage("angvel 0 1");
                         Console.Out.WriteLine(connection.ReceiveMessage());
-                        WaitForSeconds(1);
+                        //WaitForSeconds(1);
                         connection.SendMessage("angvel 0 0");
                         Console.Out.WriteLine(connection.ReceiveMessage());
                 }
@@ -52,4 +55,5 @@ class dummyAgent
     }
 
 
+}
 }

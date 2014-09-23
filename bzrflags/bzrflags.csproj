@@ -42,6 +42,7 @@
     <Compile Include="AttractField.cs" />
     <Compile Include="RejectField.cs" />
     <Compile Include="PotentialFieldsCollection.cs" />
+    <Compile Include="DummyAgent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

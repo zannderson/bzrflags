@@ -13,12 +13,16 @@ namespace bzrflags
 		
 		public Vector GetCombinedVectorForPoint(double x, double y)
 		{
-			Vector sum = new Vector(0.0, 0.0);
-			foreach (PotentialField field in PotentialFields) {
-				
+			double xSum = 0.0;
+			double ySum = 0.0;
+			foreach (PotentialField field in PotentialFields)
+			{
+				Vector currentVector = field.GetVectorForMapPoint(x, y);
+				xSum += currentVector.X;
+				ySum += currentVector.Y;
 			}
 			
-			return new Vector(0.0, 0.0);
+			return new Vector(xSum, ySum);
 		}
 	}
 }
