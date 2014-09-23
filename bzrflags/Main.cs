@@ -6,7 +6,7 @@ namespace bzrflags
 	{
 		public static void Main (string[] args)
 		{
-			TelnetConnection connection = new TelnetConnection(56862);
+			TelnetConnection connection = new TelnetConnection(42177);
 			connection.ReceiveMessage();
 			string response = connection.SendMessage("agent 1");
 			string command;
