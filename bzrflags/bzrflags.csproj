@@ -37,6 +37,10 @@
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="TelnetConnection.cs" />
+    <Compile Include="Vector.cs" />
+    <Compile Include="IPotentialField.cs" />
+    <Compile Include="AttractField.cs" />
+    <Compile Include="RejectField.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

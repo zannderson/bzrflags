@@ -13,13 +13,9 @@ namespace bzrflags
 		private NetworkStream _stream;
 		private StreamReader _reader;
 		
-		public TelnetConnection ()
+		public TelnetConnection (int port)
 		{
 			_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-		}
-		
-		public void Connect(int port)
-		{
 			_client = new TcpClient("127.0.0.1", port);
 			_stream = _client.GetStream();
 			_reader = new StreamReader(_stream, Encoding.ASCII);
@@ -60,11 +56,6 @@ namespace bzrflags
 				Console.Out.WriteLine("Exception trying to read from stream.", ex.Message);
 				return string.Empty;
 			}
-		}
-		
-		public string GetMessage()
-		{
-			return string.Empty;
 		}
 
 		#region IDisposable implementation
