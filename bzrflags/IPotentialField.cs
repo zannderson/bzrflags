@@ -10,13 +10,13 @@ namespace bzrflags
 		protected double _spread;
 		protected double _strength;
 		
-		public PotentialField(double x, double y)
+		public PotentialField(double x, double y, double radius, double strength, double spread)
 		{
 			_x = x;
 			_y = y;
-			_radius = 0.5;
-			_spread = 300.0;
-			_strength = 1.0;
+			_radius = radius;
+			_strength = strength;
+			_spread = spread;
 		}
 		
 		public virtual Vector GetVectorForMapPoint(double x, double y)

@@ -44,6 +44,7 @@
     <Compile Include="PotentialFieldsCollection.cs" />
     <Compile Include="DummyAgent.cs" />
     <Compile Include="TangentialField.cs" />
+    <Compile Include="GnuPlotGenerator.cs" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+<Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
