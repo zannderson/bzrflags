@@ -1,19 +1,17 @@
 using System;
-using System.Timers;
+using System.Threading;
 
 namespace bzrflags
 {
 
-class dummyAgent
+class DummyAgent
 {
 
     private static TelnetConnection connection;
-    private static Timer shootTimer;
 
-        public void runAgent()
+        public void runAgent(int agentNumber, int socketNumber)
         {
-                //connection = new TelnetConnection();
-                //connection.Connect(41665);
+                connection = new TelnetConnection(socketNumber);
                 connection.ReceiveMessage();
                 string response = connection.SendMessage("agent 1");
 
@@ -26,34 +24,26 @@ class dummyAgent
                         //1) Move forward for 3-8 seconds
                         //2) Turn left about 60 degrees and then start going straight again
                         //3 Also shoot every 2 seconds (random between 1.5 and 2.5 seconds) or so.
-                        int timeToWait = rand.Next(3,8);
-                        int timeToShoot = rand.Next(1500,2500);
-                        shootTimer = new System.Timers.Timer(timeToShoot);
-                        shootTimer.Elapsed += shootTank;
-                        shootTimer.Enabled = true;
-
-                        connection.SendMessage("speed 0 1");
+                        int timeToWait = rand.Next(3000,8000);
+						int timeToShoot = rand.Next(1500,2000);	
+				
+                        connection.SendMessage("speed " + agentNumber +" 1");
                         Console.Out.WriteLine(connection.ReceiveMessage());
-                        //WaitForSeconds(timeToWait);
-                        connection.SendMessage("speed 0 0");
+						System.Threading.Thread.Sleep(timeToWait);
+                        connection.SendMessage("speed " + agentNumber +" 0");
                         Console.Out.WriteLine(connection.ReceiveMessage());
 
-                        connection.SendMessage("angvel 0 1");
+                        connection.SendMessage("angvel " + agentNumber +" 1");
                         Console.Out.WriteLine(connection.ReceiveMessage());
-                        //WaitForSeconds(1);
-                        connection.SendMessage("angvel 0 0");
+                        System.Threading.Thread.Sleep(2000);
+                        connection.SendMessage("angvel " + agentNumber +" 0");
                         Console.Out.WriteLine(connection.ReceiveMessage());
+				
+						//System.Threading.Thread.Sleep(timeToShoot);
+						connection.SendMessage("shoot " + agentNumber);
+						Console.Out.WriteLine(connection.ReceiveMessage());
                 }
         }
-
-        
-	private static void shootTank(Object source, ElapsedEventArgs e)
-    {
-        connection.SendMessage("shoot 0 1");
-		Console.Out.WriteLine(connection.ReceiveMessage());
-        Console.WriteLine("The shoot event was raised at {0}", e.SignalTime);
-    }
-
 
 }
 }
