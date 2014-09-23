@@ -19,9 +19,10 @@ namespace bzrflags
 			_client = new TcpClient("127.0.0.1", port);
 			_stream = _client.GetStream();
 			_reader = new StreamReader(_stream, Encoding.ASCII);
+			string bzrobots = ReceiveMessage();
 		}
 		
-		public string SendMessage(string message)
+		public string SendMessage(string message, bool receive)
 		{
 			try
 			{
@@ -33,23 +34,23 @@ namespace bzrflags
 				Console.Out.WriteLine(string.Format("Exception sending message to server: {0}", ex.Message));
 			}
 			
-			return ReceiveMessage();			
+			if(receive)
+			{
+				return ReceiveMessage();			
+			}
+			else
+			{
+				return string.Empty;
+			}
 		}
 		
 		public string ReceiveMessage()
 		{
 			try
 			{
-				if(_stream.DataAvailable)
-				{
-					byte[] message = new byte[255];
-					_stream.Read(message, 0, message.Length);
-					return Encoding.ASCII.GetString(message);
-				}
-				else
-				{
-					return string.Empty;
-				}
+				byte[] message = new byte[1024];
+				_stream.Read(message, 0, message.Length);
+				return Encoding.ASCII.GetString(message);
 			}
 			catch (Exception ex)
 			{

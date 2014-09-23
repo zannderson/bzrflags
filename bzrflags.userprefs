@@ -1,18 +1,21 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="bzrflags/PotentialFieldsCollection.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="bzrflags/Main.cs">
     <Files>
-      <File FileName="bzrflags/Main.cs" Line="9" Column="60" />
-      <File FileName="bzrflags/TelnetConnection.cs" Line="14" Column="32" />
-      <File FileName="bzrflags/IPotentialField.cs" Line="11" Column="12" />
-      <File FileName="bzrflags/Vector.cs" Line="8" Column="16" />
-      <File FileName="bzrflags/AttractField.cs" Line="14" Column="25" />
-      <File FileName="bzrflags/RejectField.cs" Line="13" Column="4" />
-      <File FileName="bzrflags/PotentialFieldsCollection.cs" Line="22" Column="4" />
+      <File FileName="bzrflags/Main.cs" Line="14" Column="1" />
+      <File FileName="bzrflags/TelnetConnection.cs" Line="39" Column="1" />
+      <File FileName="bzrflags/IPotentialField.cs" Line="19" Column="21" />
+      <File FileName="bzrflags/AttractField.cs" Line="33" Column="5" />
+      <File FileName="bzrflags/RejectField.cs" Line="10" Column="4" />
+      <File FileName="bzrflags/TangentialField.cs" Line="23" Column="81" />
+      <File FileName="bzrflags/DummyAgent.cs" Line="43" Column="58" />
+      <File FileName="bzrflags/ObstacleCollection.cs" Line="49" Column="30" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/users/grads/z/zanna/bzrflags/bzrflags/Main.cs" line="13" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

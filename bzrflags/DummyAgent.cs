@@ -13,7 +13,7 @@ class DummyAgent
         {
                 connection = new TelnetConnection(socketNumber);
                 connection.ReceiveMessage();
-                string response = connection.SendMessage("agent 1");
+                string response = connection.SendMessage("agent 1", false);
 
                 Random rand = new Random();
 
@@ -27,20 +27,20 @@ class DummyAgent
                         int timeToWait = rand.Next(3000,8000);
 						int timeToShoot = rand.Next(1500,2000);	
 				
-                        connection.SendMessage("speed " + agentNumber +" 1");
+                        connection.SendMessage("speed " + agentNumber +" 1", true);
                         Console.Out.WriteLine(connection.ReceiveMessage());
 						System.Threading.Thread.Sleep(timeToWait);
-                        connection.SendMessage("speed " + agentNumber +" 0");
+                        connection.SendMessage("speed " + agentNumber +" 0", true);
                         Console.Out.WriteLine(connection.ReceiveMessage());
 
-                        connection.SendMessage("angvel " + agentNumber +" 1");
+                        connection.SendMessage("angvel " + agentNumber +" 1", true);
                         Console.Out.WriteLine(connection.ReceiveMessage());
                         System.Threading.Thread.Sleep(2000);
-                        connection.SendMessage("angvel " + agentNumber +" 0");
+                        connection.SendMessage("angvel " + agentNumber +" 0", true);
                         Console.Out.WriteLine(connection.ReceiveMessage());
 				
 						//System.Threading.Thread.Sleep(timeToShoot);
-						connection.SendMessage("shoot " + agentNumber);
+						connection.SendMessage("shoot " + agentNumber, true);
 						Console.Out.WriteLine(connection.ReceiveMessage());
                 }
         }

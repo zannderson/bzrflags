@@ -43,9 +43,11 @@
     <Compile Include="RejectField.cs" />
     <Compile Include="PotentialFieldsCollection.cs" />
     <Compile Include="DummyAgent.cs" />
+<<<<<<< Updated upstream
     <Compile Include="TangentialField.cs" />
+=======
     <Compile Include="GnuPlotGenerator.cs" />
-    <Compile Include="ObstacleCollection.cs" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

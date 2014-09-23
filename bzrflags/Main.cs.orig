@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+
+namespace bzrflags
+{
+	class MainClass
+	{
+		public static void Main (string[] args)
+		{
+<<<<<<< Updated upstream
+			/*
+			DummyAgent da = new DummyAgent();
+			da.runAgent(0,50103);\
+			*/
+			
+			TelnetConnection connection = new TelnetConnection(50103);
+			connection.ReceiveMessage();
+			string response = connection.SendMessage("agent 1");
+			string command;
+			while(true)
+			{
+				Console.Out.Write("Input a command: ");
+				command = Console.In.ReadLine();
+				connection.SendMessage(command);
+				Console.Out.WriteLine();
+				Console.Out.WriteLine(connection.ReceiveMessage());
+			}
+			Console.Out.Write("HELLO!!");
+=======
+			List<PotentialField> fields = new List<PotentialField>();
+			fields.Add(new AttractField(0.0, 0.0, 10.0, 0.1));
+			fields.Add(new RejectField(250, 250, 50, 0.1));
+			//fields.Add (new AttractField(-350.0, -350.0));
+//			fields.Add (new AttractField(-200.0, 56.0));
+//			fields.Add (new AttractField(150.0, -265.0));
+//			fields.Add (new AttractField(-400.0, -400.0));
+			PotentialFieldsCollection coll = new PotentialFieldsCollection();
+			coll.PotentialFields = fields;
+			GnuPlotGenerator.PlotMyFields("newTest", coll);
+>>>>>>> Stashed changes
+		}
+	}
+}
