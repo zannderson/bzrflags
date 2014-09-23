@@ -12,7 +12,6 @@ namespace bzrflags
 		private TcpClient _client;
 		private NetworkStream _stream;
 		private StreamReader _reader;
-		private StreamWriter _writer;
 		
 		public TelnetConnection ()
 		{
@@ -23,15 +22,44 @@ namespace bzrflags
 		{
 			_client = new TcpClient("127.0.0.1", port);
 			_stream = _client.GetStream();
-			_reader = new StreamReader(_stream);
-			_writer = new StreamWriter(_stream);
+			_reader = new StreamReader(_stream, Encoding.ASCII);
 		}
 		
 		public string SendMessage(string message)
 		{
-			byte[] messageBytes = Encoding.ASCII.GetBytes(message + "\n");
-			_writer.Write(messageBytes);
-			return string.Empty;
+			try
+			{
+				byte[] messageBytes = Encoding.ASCII.GetBytes(message + "\n");
+				_stream.Write(messageBytes, 0, messageBytes.Length);
+			}
+			catch (Exception ex)
+			{
+				Console.Out.WriteLine(string.Format("Exception sending message to server: {0}", ex.Message));
+			}
+			
+			return ReceiveMessage();			
+		}
+		
+		public string ReceiveMessage()
+		{
+			try
+			{
+				if(_stream.DataAvailable)
+				{
+					byte[] message = new byte[255];
+					_stream.Read(message, 0, message.Length);
+					return Encoding.ASCII.GetString(message);
+				}
+				else
+				{
+					return string.Empty;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.Out.WriteLine("Exception trying to read from stream.", ex.Message);
+				return string.Empty;
+			}
 		}
 		
 		public string GetMessage()
