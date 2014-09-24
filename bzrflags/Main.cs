@@ -23,9 +23,11 @@ namespace bzrflags
 			*/
 			
 			TelnetConnection.setPort(50103);
-			DummyAgent agent = new DummyAgent();
-			agent.runAgent(0);
+			//DummyAgent agent = new DummyAgent();
+			//agent.runAgent(0);
 			
+			PFAgent pf = new PFAgent(0);
+			pf.runAgent();
 			
 //			PFAgent pf = new PFAgent(50103,1);
 //			pf.populateTanks();

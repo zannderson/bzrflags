@@ -59,7 +59,7 @@ namespace bzrflags
 			{
 				//return _reader.ReadLine();
 				Thread.Sleep(50);
-				byte[] message = new byte[1024];
+				byte[] message = new byte[3*1024];
 				_stream.Read(message, 0, message.Length);
 				return Encoding.ASCII.GetString(message);
 			}
