@@ -27,7 +27,7 @@ namespace bzrflags
 		{
 			connection = new TelnetConnection(socketNumber);
             connection.ReceiveMessage();
-            string response = connection.SendMessage("agent " + agentNumber);
+            string response = connection.SendMessage("agent " + agentNumber, true);
 		}
 		
 		public List<Tank> populateTanks()

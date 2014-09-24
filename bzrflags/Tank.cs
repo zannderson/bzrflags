@@ -23,6 +23,10 @@ namespace bzrflags
 		private int _yPosition {set;get;}
 		private double _angle {set;get;}
 		private double _angelVelocity {set;get;}
+		private double _velocityX {get;set;}
+		private double _velocityY {get;set;}
+		private TANK_STATUS _status {get;set;}
+		
 		private TelnetConnection _connection {set;get;}
 		
 		public Tank ()
@@ -42,7 +46,7 @@ namespace bzrflags
 		{
 			double targetAngle = Math.Atan2(targetY - _yPosition, targetX - _xPosition);
 			double relativeAngle = normalizeAngle(targetAngle - _angle);
-		 	_connection.SendMessage(_index  + " 1 " + (2 * relativeAngle) );
+		 	_connection.SendMessage(_index  + " 1 " + (2 * relativeAngle),true );
             Console.Out.WriteLine(_connection.ReceiveMessage());	
 		}
 		
@@ -92,24 +96,37 @@ namespace bzrflags
 				//convert flag status to bool
 					
 				//convert status to enum
-				
+				TANK_STATUS enumStatus = TANK_STATUS.ALIVE;
+				if(status == "alive")
+				{
+					enumStatus = TANK_STATUS.DEAD;
+				}
+				else if(status == "dead")
+				{
+					enumStatus = TANK_STATUS.DEAD;
+				}
+					
 				
 				//create tank, add it to myTanks
 				Tank tempTank = new Tank()
 				{
 					_index = tankIndex,
 					_callsign = callsign,
-					//connection????
-					//status?????
-					//flag?????
+					//TODO: connection still NEEDED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					
+					
+					
+					
+					//TODO: flag status still needed!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					
+					_status = enumStatus,
 					_shotsAvailable = shotsAvailable,
 					_timeToReload = timeToReload,
 					_xPosition = xPos,
 					_yPosition = yPos,
 					_angle = angle,
-					//velocityX
-					//""Y
+					_velocityX = velocityX,
+					_velocityY = velocityY,
 					_angelVelocity = angleVelocity
 					
 				};
