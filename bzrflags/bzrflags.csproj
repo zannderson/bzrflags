@@ -50,6 +50,7 @@
     <Compile Include="Tank.cs" />
     <Compile Include="PFAgent.cs" />
     <Compile Include="Flags.cs" />
+    <Compile Include="RandomField.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

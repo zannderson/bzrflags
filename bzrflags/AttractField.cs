@@ -32,10 +32,10 @@ namespace bzrflags
 			{
 				return new Vector(_strength * (distance - _radius) * Math.Cos(angle), _strength * (distance - _radius) * Math.Sin(angle));
 			}
-			else if(distance > SpreadAndRadius)
-			{
-				return new Vector(_strength * _spread * Math.Cos(angle), _strength * _spread * Math.Sin(angle));
-			}
+//			else if(distance > SpreadAndRadius)
+//			{
+//				return new Vector(_strength * _spread * Math.Cos(angle), _strength * _spread * Math.Sin(angle));
+//			}
 			else
 			{
 				return new Vector(0.0, 0.0);
