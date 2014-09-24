@@ -1,18 +1,27 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="bzrflags/PotentialFieldsCollection.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="bzrflags/PFAgent.cs">
     <Files>
-      <File FileName="bzrflags/Main.cs" Line="9" Column="60" />
-      <File FileName="bzrflags/TelnetConnection.cs" Line="14" Column="32" />
+      <File FileName="bzrflags/Main.cs" Line="20" Column="29" />
+      <File FileName="bzrflags/TelnetConnection.cs" Line="20" Column="11" />
       <File FileName="bzrflags/IPotentialField.cs" Line="11" Column="12" />
       <File FileName="bzrflags/Vector.cs" Line="8" Column="16" />
       <File FileName="bzrflags/AttractField.cs" Line="14" Column="25" />
       <File FileName="bzrflags/RejectField.cs" Line="13" Column="4" />
-      <File FileName="bzrflags/PotentialFieldsCollection.cs" Line="22" Column="4" />
+      <File FileName="bzrflags/PotentialFieldsCollection.cs" Line="8" Column="60" />
+      <File FileName="bzrflags/TangentialField.cs" Line="1" Column="1" />
+      <File FileName="bzrflags/AssemblyInfo.cs" Line="1" Column="1" />
+      <File FileName="bzrflags/Tank.cs" Line="68" Column="5" />
+      <File FileName="bzrflags/DummyAgent.cs" Line="16" Column="80" />
+      <File FileName="bzrflags/GnuPlotGenerator.cs" Line="1" Column="1" />
+      <File FileName="bzrflags/PFAgent.cs" Line="5" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/users/ugrad/j/jbh234/bzrflags/bzrflags/PFAgent.cs" line="38" />
+      <Breakpoint file="/users/ugrad/j/jbh234/bzrflags/bzrflags/PFAgent.cs" line="23" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

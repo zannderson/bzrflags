@@ -13,7 +13,7 @@ class DummyAgent
         {
                 connection = new TelnetConnection(socketNumber);
                 connection.ReceiveMessage();
-                string response = connection.SendMessage("agent 1");
+                string response = connection.SendMessage("agent " + agentNumber);
 
                 Random rand = new Random();
 
