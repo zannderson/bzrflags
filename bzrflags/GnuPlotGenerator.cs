@@ -21,7 +21,7 @@ namespace bzrflags
 			
 			sb.AppendLine("plot '-' with vectors head");
 			
-			double increment = 800.0 / 25.0;
+			double increment = 800.0 / 30.0;
 			
 			for (double xVal = -400.0; xVal <= 400.0; xVal += increment)
 			{

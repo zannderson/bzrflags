@@ -12,6 +12,10 @@ namespace bzrflags
 		public Vector Location { get; set; }
 
 		public FlagColor PosessingTeamColor { get; set; }
+		
+		private Flag()
+		{
+		}
 
 		public Flag Parse(string input)
 		{

@@ -12,9 +12,7 @@ class DummyAgent
         public void runAgent(int agentNumber, int socketNumber)
         {
                 connection = new TelnetConnection(socketNumber);
-                connection.ReceiveMessage();
                 string response = connection.SendMessage("agent 1", false);
-                //string response = connection.SendMessage("agent " + agentNumber);
 
                 Random rand = new Random();
 
@@ -28,21 +26,16 @@ class DummyAgent
                         int timeToWait = rand.Next(3000,8000);
 						int timeToShoot = rand.Next(1500,2000);	
 				
-                        connection.SendMessage("speed " + agentNumber +" 1", true);
-                        Console.Out.WriteLine(connection.ReceiveMessage());
+                        Console.Out.WriteLine (connection.SendMessage("speed " + agentNumber +" 1", true));
 						System.Threading.Thread.Sleep(timeToWait);
-                        connection.SendMessage("speed " + agentNumber +" 0", true);
-                        Console.Out.WriteLine(connection.ReceiveMessage());
+                        Console.Out.WriteLine (connection.SendMessage("speed " + agentNumber +" 0", true));
 
-                        connection.SendMessage("angvel " + agentNumber +" 1", true);
-                        Console.Out.WriteLine(connection.ReceiveMessage());
+                        Console.Out.WriteLine (connection.SendMessage("angvel " + agentNumber +" 1", true));
                         System.Threading.Thread.Sleep(2000);
-                        connection.SendMessage("angvel " + agentNumber +" 0", true);
-                        Console.Out.WriteLine(connection.ReceiveMessage());
+                        Console.Out.WriteLine (connection.SendMessage("angvel " + agentNumber +" 0", true));
 				
 						//System.Threading.Thread.Sleep(timeToShoot);
-						connection.SendMessage("shoot " + agentNumber, true);
-						Console.Out.WriteLine(connection.ReceiveMessage());
+						Console.Out.WriteLine (connection.SendMessage("shoot " + agentNumber, true));
                 }
         }
 

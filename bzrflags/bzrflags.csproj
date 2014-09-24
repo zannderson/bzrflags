@@ -51,6 +51,8 @@
     <Compile Include="PFAgent.cs" />
     <Compile Include="Flags.cs" />
     <Compile Include="RandomField.cs" />
+    <Compile Include="Obstacle.cs" />
+    <Compile Include="LineSegment.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

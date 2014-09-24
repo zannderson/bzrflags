@@ -5,24 +5,23 @@ namespace bzrflags
 {
 	public class PotentialFieldsCollection
 	{
-		public List<PotentialField> PotentialFields { get; set; }
+		public List<PotentialField> Fields { get; set; }
 		
-		public PotentialFieldsCollection ()
+		public PotentialFieldsCollection (List<PotentialField> fields)
 		{
+			Fields = fields;
 		}
 		
 		public Vector GetCombinedVectorForPoint(double x, double y)
 		{
-			double xSum = 0.0;
-			double ySum = 0.0;
-			foreach (PotentialField field in PotentialFields)
+			Vector sum = new Vector(0.0, 0.0);
+			foreach (PotentialField field in Fields)
 			{
 				Vector currentVector = field.GetVectorForMapPoint(x, y);
-				xSum += currentVector.X;
-				ySum += currentVector.Y;
+				sum += currentVector;
 			}
 			
-			return new Vector(xSum, ySum);
+			return sum;
 		}
 	}
 }
