@@ -22,14 +22,23 @@ namespace bzrflags
 			}
 			*/
 			
-			DummyAgent agent = new DummyAgent();
+			
 			
 //			PFAgent pf = new PFAgent(50103,1);
 //			pf.populateTanks();
 	
-//			TelnetConnection connection = new TelnetConnection(51997);
-//			connection.SendMessage("agent 1", false);
-//			string obstacles = connection.SendMessage("obstacles", true);
+			TelnetConnection connection = new TelnetConnection(59550);
+			connection.SendMessage("agent 1", false);
+			string constants = connection.SendMessage("constants", true);
+			Constants myConstants = new Constants(constants);
+			string obstacles = connection.SendMessage("obstacles", true);
+			ObstacleCollection obs = new ObstacleCollection(obstacles);
+			string flags = connection.SendMessage("flags", true);
+			FlagCollection flagCollection = new FlagCollection(flags);
+			List<PotentialField> allFields = new List<PotentialField>();
+			allFields.AddRange(obs.ObstacleFields);
+			allFields.Add (flagCollection.GetFieldForNearestFlag(new Vector(370.0, 0.0)));
+			PotentialFieldsCollection fields = new PotentialFieldsCollection(allFields);
 //			List<PotentialField> obstacleFields = ObstacleCollection.GetFieldsForObstacles(obstacles);
 //			string flags = connection.SendMessage("flags", true);
 //			List<PotentialField> flagFields = Flags.GetFlagFields(flags, "blue");
@@ -40,7 +49,7 @@ namespace bzrflags
 //			//collection.PotentialFields = manualFields;
 //			collection.Fields.AddRange(manualFields);
 //			//collection.PotentialFields.AddRange(flagFields);
-//			GnuPlotGenerator.PlotMyFields("fields", collection);
+			GnuPlotGenerator.PlotMyFields("fields", fields);
 		}
 	}
 }

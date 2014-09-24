@@ -49,10 +49,11 @@
     <Compile Include="ObstacleCollection.cs" />
     <Compile Include="Tank.cs" />
     <Compile Include="PFAgent.cs" />
-    <Compile Include="Flags.cs" />
     <Compile Include="RandomField.cs" />
     <Compile Include="Obstacle.cs" />
     <Compile Include="LineSegment.cs" />
+    <Compile Include="FlagCollection.cs" />
+    <Compile Include="Constants.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

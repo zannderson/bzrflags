@@ -15,7 +15,7 @@ namespace bzrflags
 			Lines = new List<LineSegment>();
 		}
 		
-		public Obstacle Parse(string input)
+		public static Obstacle Parse(string input)
 		{
 			Obstacle newObstacle = new Obstacle();
 			
@@ -36,14 +36,26 @@ namespace bzrflags
 				}
 			}
 			
-			for (int i = 0; i < Vertices.Count; i++)
+			for (int i = 0; i < newObstacle.Vertices.Count; i++)
 			{
-				int next = i == Vertices.Count - 1 ? 0 : i + 1;
-				LineSegment segment = new LineSegment(Vertices[i], Vertices[next]);
+				int next = i == newObstacle.Vertices.Count - 1 ? 0 : i + 1;
+				LineSegment segment = new LineSegment(newObstacle.Vertices[i], newObstacle.Vertices[next]);
 				newObstacle.Lines.Add(segment);
 			}
 			
 			return newObstacle;
+		}
+		
+		public List<PotentialField> GetObstacleFields()
+		{
+			List<PotentialField> fields = new List<PotentialField>();
+			
+			foreach (LineSegment line in Lines)
+			{
+				fields.AddRange(line.GetSegmentFields());
+			}
+			
+			return fields;
 		}
 	}
 }

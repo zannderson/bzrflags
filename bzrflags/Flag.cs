@@ -17,7 +17,7 @@ namespace bzrflags
 		{
 		}
 
-		public Flag Parse(string input)
+		public static Flag Parse(string input)
 		{
 			if (!input.StartsWith("flag"))
 			{
@@ -40,7 +40,7 @@ namespace bzrflags
 			return null;
 		}
 
-		private FlagColor ParseFlagColor(string input)
+		public static FlagColor ParseFlagColor(string input)
 		{
 			switch (input)
 			{
@@ -55,6 +55,11 @@ namespace bzrflags
 				default:
 					return FlagColor.None;
 			}
+		}
+		
+		public PotentialField GetFlagField()
+		{
+			return new AttractField(Location.X, Location.Y, 1.0, 0.1, 400);
 		}
 	}
 

@@ -5,29 +5,40 @@ namespace bzrflags
 {
 	public class PFAgent
 	{
-		private static TelnetConnection connection;
+		private static TelnetConnection _connection;
 		
 		public void runAgent()
 		{
 			while(true)
 			{
 				//sleep for x milliseconds
-				System.Threading.Thread.Sleep(100);
+				System.Threading.Thread.Sleep(110);
 				tick();
 			}
 		}
 		
-		public void tick()
+		private void tick()
 		{
-			List<Tank> myTanks = populateTanks();
-			
+			string constantString = _connection.SendMessage("constants", true);
+			string myTanksString = _connection.SendMessage("mytanks", true);
+			string otherTanksString = _connection.SendMessage("othertanks", true);
+			string obstaclesString = _connection.SendMessage("obstacles", true);
+			string flagsString = _connection.SendMessage("flags", true);
 		}
 		
 		public PFAgent (int socketNumber, int agentNumber)
 		{
 			connection = new TelnetConnection(socketNumber);
-            connection.ReceiveMessage();
-            string response = connection.SendMessage("agent " + agentNumber, true);
+            string serverHandshake = connection.ReceiveMessage();
+			if(serverHandshake == "bzrobots 1")
+			{
+            	string response = connection.SendMessage("agent 1", true);
+			}
+			else
+			{
+				Console.Out.WriteLine("Handshake failed.  Server returned: " + serverHandshake);
+				throw new Exception("Something went wrong with handshake!");
+			}
 		}
 		
 		public List<Tank> populateTanks()
