@@ -9,9 +9,11 @@ class DummyAgent
 
     private static TelnetConnection connection;
 
-        public void runAgent(int agentNumber, int socketNumber)
+        public void runAgent(int agentNumber)
         {
-                connection = new TelnetConnection(socketNumber);
+                connection = TelnetConnection.getConnection(); 
+				
+				//new TelnetConnection(socketNumber);
                 string response = connection.SendMessage("agent 1", false);
 
                 Random rand = new Random();

@@ -14,13 +14,21 @@ namespace bzrflags
 		private NetworkStream _stream;
 		private StreamReader _reader;
 		
-		public TelnetConnection (int port)
+		private static TelnetConnection _connection;
+		private static int _port;
+		
+		private TelnetConnection ()
 		{
 			_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-			_client = new TcpClient("127.0.0.1", port);
+			_client = new TcpClient("127.0.0.1", _port);
 			_stream = _client.GetStream();
 			_reader = new StreamReader(_stream, Encoding.ASCII);
 			string bzrobots = ReceiveMessage();
+		}
+		
+		public static void setPort(int port)
+		{
+			_port = port;
 		}
 		
 		public string SendMessage(string message, bool receive)
@@ -73,6 +81,15 @@ namespace bzrflags
 		}
 		
 		#endregion
+		
+		public static TelnetConnection getConnection()
+		{
+			if(_connection == null)
+			{
+				_connection = new TelnetConnection();
+			}
+			return _connection;
+		}
 	}
 }
 

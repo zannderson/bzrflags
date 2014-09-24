@@ -25,7 +25,7 @@ namespace bzrflags
 		
 		public PFAgent (int socketNumber, int agentNumber)
 		{
-			connection = new TelnetConnection(socketNumber);
+			connection = TelnetConnection.getConnection();
             connection.ReceiveMessage();
             string response = connection.SendMessage("agent " + agentNumber, true);
 		}
