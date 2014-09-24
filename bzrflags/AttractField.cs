@@ -11,7 +11,12 @@ namespace bzrflags
 		
 		public AttractField(double x, double y, double radius, double strength, double spread) : base(x, y, radius, strength, spread)
 		{
-		}	
+		}
+
+		public static AttractField GetFieldForFlag(Flag input)
+		{
+			return new AttractField(input.Location.X, input.Location.Y, 0.5, 0.5, 50);
+		}
 		
 		#region IPotentialField implementation
 		
