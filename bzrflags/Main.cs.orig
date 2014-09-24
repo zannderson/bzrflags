@@ -7,12 +7,29 @@ namespace bzrflags
 	{
 		public static void Main (string[] args)
 		{
-<<<<<<< Updated upstream
+<<<<<<< HEAD
+			TelnetConnection connection = new TelnetConnection(58502);
+			//connection.ReceiveMessage();
+			connection.SendMessage("agent 1", false);
+			string obstacles = connection.SendMessage("obstacles", true);
+			List<PotentialField> fields = ObstacleCollection.GetFieldsForObstacles(obstacles);
+//			fields.Add(new AttractField(350.0, 350.0, 0.5, 0.5, 40));
+//			fields.Add(new RejectField(250.0, -100.0, 0.5, 0.5, 70));
+//			fields.Add(new TangentialField(-300.0, 230.0, 20, 0.5, 10));
+//			fields.Add(new TangentialField(-300.0, 231.0, 20, 0.5, 10));
+//			fields.Add(new TangentialField(-300.0, 232.0, 20, 0.5, 10));
+//			fields.Add(new TangentialField(-300.0, 233.0, 20, 0.5, 10));
+//			fields.Add(new TangentialField(-300.0, 234.0, 20, 0.5, 10));
+//			fields.Add(new TangentialField(-300.0, 235.0, 20, 0.5, 10));
+//			fields.Add(new TangentialField(-300.0, 236.0, 20, 0.5, 10));
+//			fields.Add(new TangentialField(-300.0, 237.0, 20, 0.5, 10));
+//			fields.Add(new TangentialField(-300.0, 238.0, 20, 0.5, 10));
+//			fields.Add(new TangentialField(-300.0, 239.0, 20, 0.5, 10));
+//			fields.Add(new TangentialField(-300.0, 240.0, 20, 0.5, 10));
+//			fields.Add(new TangentialField(-300.0, 241.0, 20, 0.5, 10));
+//			fields.Add(new TangentialField(-300.0, 242.0, 20, 0.5, 10));
+=======
 			/*
-			DummyAgent da = new DummyAgent();
-			da.runAgent(0,50103);\
-			*/
-			
 			TelnetConnection connection = new TelnetConnection(50103);
 			connection.ReceiveMessage();
 			string response = connection.SendMessage("agent 1");
@@ -25,19 +42,34 @@ namespace bzrflags
 				Console.Out.WriteLine();
 				Console.Out.WriteLine(connection.ReceiveMessage());
 			}
-			Console.Out.Write("HELLO!!");
-=======
+			*/
+			
+			PFAgent pf = new PFAgent(50103,1);
+			pf.updateTanks();
+			
+			
+			/*
 			List<PotentialField> fields = new List<PotentialField>();
-			fields.Add(new AttractField(0.0, 0.0, 10.0, 0.1));
-			fields.Add(new RejectField(250, 250, 50, 0.1));
-			//fields.Add (new AttractField(-350.0, -350.0));
-//			fields.Add (new AttractField(-200.0, 56.0));
-//			fields.Add (new AttractField(150.0, -265.0));
-//			fields.Add (new AttractField(-400.0, -400.0));
+			fields.Add(new AttractField(350.0, 350.0, 0.5, 0.5, 40));
+			fields.Add(new RejectField(250.0, -100.0, 0.5, 0.5, 70));
+			fields.Add(new TangentialField(-300.0, 230.0, 20, 0.5, 10));
+			fields.Add(new TangentialField(-300.0, 231.0, 20, 0.5, 10));
+			fields.Add(new TangentialField(-300.0, 232.0, 20, 0.5, 10));
+			fields.Add(new TangentialField(-300.0, 233.0, 20, 0.5, 10));
+			fields.Add(new TangentialField(-300.0, 234.0, 20, 0.5, 10));
+			fields.Add(new TangentialField(-300.0, 235.0, 20, 0.5, 10));
+			fields.Add(new TangentialField(-300.0, 236.0, 20, 0.5, 10));
+			fields.Add(new TangentialField(-300.0, 237.0, 20, 0.5, 10));
+			fields.Add(new TangentialField(-300.0, 238.0, 20, 0.5, 10));
+			fields.Add(new TangentialField(-300.0, 239.0, 20, 0.5, 10));
+			fields.Add(new TangentialField(-300.0, 240.0, 20, 0.5, 10));
+			fields.Add(new TangentialField(-300.0, 241.0, 20, 0.5, 10));
+			fields.Add(new TangentialField(-300.0, 242.0, 20, 0.5, 10));
+>>>>>>> db88d5e501d3fb7eed1ce09e66b1198345e8adce
 			PotentialFieldsCollection coll = new PotentialFieldsCollection();
 			coll.PotentialFields = fields;
 			GnuPlotGenerator.PlotMyFields("newTest", coll);
->>>>>>> Stashed changes
+			*/
 		}
 	}
 }

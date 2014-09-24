@@ -1,5 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+<<<<<<< HEAD
+  <MonoDevelop.Ide.Workbench ActiveDocument="bzrflags/Main.cs">
+    <Files>
+      <File FileName="bzrflags/Main.cs" Line="14" Column="1" />
+      <File FileName="bzrflags/TelnetConnection.cs" Line="39" Column="1" />
+      <File FileName="bzrflags/IPotentialField.cs" Line="19" Column="21" />
+      <File FileName="bzrflags/AttractField.cs" Line="33" Column="5" />
+      <File FileName="bzrflags/RejectField.cs" Line="10" Column="4" />
+      <File FileName="bzrflags/TangentialField.cs" Line="23" Column="81" />
+      <File FileName="bzrflags/DummyAgent.cs" Line="43" Column="58" />
+      <File FileName="bzrflags/ObstacleCollection.cs" Line="49" Column="30" />
+=======
   <MonoDevelop.Ide.Workbench ActiveDocument="bzrflags/PFAgent.cs">
     <Files>
       <File FileName="bzrflags/Main.cs" Line="20" Column="29" />
@@ -20,8 +32,12 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
+<<<<<<< HEAD
+      <Breakpoint file="/users/grads/z/zanna/bzrflags/bzrflags/Main.cs" line="13" />
+=======
       <Breakpoint file="/users/ugrad/j/jbh234/bzrflags/bzrflags/PFAgent.cs" line="38" />
       <Breakpoint file="/users/ugrad/j/jbh234/bzrflags/bzrflags/PFAgent.cs" line="23" />
+>>>>>>> db88d5e501d3fb7eed1ce09e66b1198345e8adce
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

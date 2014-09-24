@@ -29,7 +29,7 @@ namespace bzrflags
 			}
 			else if(distance > SpreadAndRadius)
 			{
-				return new Vector(_strength * (_spread * Math.Cos(angle)), _strength * (_spread * Math.Sin(angle)));
+				return new Vector(_strength * _spread * Math.Cos(angle), _strength * _spread * Math.Sin(angle));
 			}
 			else
 			{

@@ -46,6 +46,9 @@
     <Compile Include="TangentialField.cs" />
     <Compile Include="GnuPlotGenerator.cs" />
     <Compile Include="ObstacleCollection.cs" />
+    <Compile Include="Tank.cs" />
+    <Compile Include="PFAgent.cs" />
+    <Compile Include="Flags.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,6 +3,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Text;
 using System.IO;
+using System.Threading;
 
 namespace bzrflags
 {
@@ -48,6 +49,8 @@ namespace bzrflags
 		{
 			try
 			{
+				//return _reader.ReadLine();
+				Thread.Sleep(50);
 				byte[] message = new byte[1024];
 				_stream.Read(message, 0, message.Length);
 				return Encoding.ASCII.GetString(message);

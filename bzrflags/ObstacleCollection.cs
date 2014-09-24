@@ -32,7 +32,7 @@ namespace bzrflags
 							}
 							else
 							{
-								double xIncrement = 1.0;
+								double xIncrement = 0.5;
 								double xStart = startPoint.X;
 								double xEnd = endPoint.X;
 								if(startPoint.X > endPoint.X)
@@ -40,7 +40,7 @@ namespace bzrflags
 									xStart = endPoint.X;
 									xEnd = startPoint.X;
 								}
-								double yIncrement = 1.0;
+								double yIncrement = 0.5;
 								double yStart = startPoint.Y;
 								double yEnd = endPoint.Y;
 								if(startPoint.Y > endPoint.Y)
@@ -52,7 +52,7 @@ namespace bzrflags
 								{									
 									for(double yPoint = yStart; yPoint <= yEnd; yPoint += yIncrement)
 									{
-										fields.Add(new TangentialField(xPoint, yPoint, 20, 0.5, 10));
+										fields.Add(new TangentialField(xPoint, yPoint, 20, 0.75, 5));
 									}
 								}
 								startPoint = null;
