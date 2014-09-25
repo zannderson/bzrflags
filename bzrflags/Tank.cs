@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace bzrflags
 {
 	
-	enum TANK_STATUS
+	public enum TANK_STATUS
 	{
 		ALIVE,
 		DEAD,
@@ -14,20 +14,19 @@ namespace bzrflags
 	public class Tank
 	{
 			
-		private int _index {set;get;}
-		private string _callsign {set;get;}
-		private int _shotsAvailable {set;get;}
-		private int _timeToReload {set;get;}
-		private bool _hasFlag {set;get;}
-		private int _xPosition {set;get;}
-		private int _yPosition {set;get;}
-		private double _angle {set;get;}
-		private double _angelVelocity {set;get;}
-		private double _velocityX {get;set;}
-		private double _velocityY {get;set;}
-		private TANK_STATUS _status {get;set;}
-		
-		private TelnetConnection _connection {set;get;}
+		public int _index {set;get;}
+		public string _callsign {set;get;}
+		public int _shotsAvailable {set;get;}
+		public double _timeToReload {set;get;}
+		public bool _hasFlag {set;get;}
+		public double _xPosition {set;get;}
+		public double _yPosition {set;get;}
+		public double _angle {set;get;}
+		public double _angelVelocity {set;get;}
+		public double _velocityX {get;set;}
+		public double _velocityY {get;set;}
+		public TANK_STATUS _status {get;set;}
+		public bool _isEnemy {get;set;}
 		
 		public Tank ()
 		{		
@@ -42,31 +41,44 @@ namespace bzrflags
 		}
 		
 		//set command to move to given coordinates
-		public void moveToPosition(double targetX, double targetY)
+		public void moveToPosition(Vector current, Vector target)
 		{
-			double targetAngle = Math.Atan2(targetY - _yPosition, targetX - _xPosition);
-			double relativeAngle = normalizeAngle(targetAngle - _angle);
-		 	_connection.SendMessage(_index  + " 1 " + (2 * relativeAngle),true );
-            Console.Out.WriteLine(_connection.ReceiveMessage());	
+			double targetAngle = Math.Atan2(target.Y - current.Y, target.X - current.X);
+			double relativeAngle = NormalizeAngle(targetAngle - _angle);
+			double angvel = 0.0;
+			Console.Out.WriteLine("My Angle: " + _angle + " Target Angle: " + targetAngle + " Relative Angle: " + relativeAngle);
+		 	TelnetConnection.Connection.SendMessage("speed " + _index  + " 1 ", true);
+			TelnetConnection.Connection.SendMessage("angvel " + _index + " " + relativeAngle.ToString(), true);
+			TelnetConnection.Connection.SendMessage("shoot " + _index, true);
 		}
 		
 		//make any angle be between -pi and pi
-		private static double normalizeAngle(double angle)
+		private double NormalizeAngle(double angle)
 		{
-			angle -= 2 * Math.PI * (angle/(2*Math.PI));
-			if(angle <= Math.PI)
+			decimal decimalPi = (decimal)Math.PI;
+			decimal decimalAngle = (decimal)angle;
+			decimal doublePi = Decimal.Multiply(2.0m, decimalPi);
+			decimal intermediate = decimal.Divide(decimalAngle, doublePi);
+			int intermediate2 = (int)intermediate;
+			decimalAngle = decimal.Subtract(decimalAngle, decimal.Multiply(doublePi, intermediate2));
+			//angle -= 2.0 * pi * (int)(angle/(2.0*pi));
+			if(decimalAngle <= decimal.Multiply(-1.0m,decimalPi))
 			{
-				angle += 2 * Math.PI;
+				decimalAngle = decimal.Add(decimalAngle, doublePi);
+				//angle += (double)doublePi;
 			}
-			else if(angle > Math.PI)
+			else if(decimalAngle > decimalPi)
 			{
-				angle -= 2 * Math.PI;
+				decimalAngle = decimal.Subtract(decimalAngle, doublePi);
+				//angle -= (double)doublePi;
 			}
 			
-			return angle;
+			decimal.Multiply(decimalAngle, 2.0m);
+			
+			return (double)decimalAngle;
 		}
 		
-	public static List<Tank> createTanks(string rawTanksData)
+	public static List<Tank> createMyTanks(string rawTanksData)
 	{
 		List<Tank> myTanks = new List<Tank>();
 			
@@ -74,7 +86,7 @@ namespace bzrflags
 			
 			foreach(string individualTankData in splitTankData)
 			{
-				if(individualTankData == "begin" || individualTankData == "end")
+				if(!individualTankData.StartsWith("mytank"))
 					continue;
 				
 				string[] tokens = individualTankData.Split(null);
@@ -83,23 +95,28 @@ namespace bzrflags
 				string callsign = tokens[2];
 				string status = tokens[3];
 				int shotsAvailable = int.Parse(tokens[4]);
-				int timeToReload = int.Parse(tokens[5]);
-				char flag = char.Parse(tokens[6]);
-				int xPos = int.Parse(tokens[34]);
-				int yPos = int.Parse (tokens[35]);
+				double timeToReload = double.Parse(tokens[5]);
+				FlagColor flag = Flag.ParseFlagColor(tokens[6]);
+				double xPos = double.Parse(tokens[34]);
+				double yPos = double.Parse (tokens[35]);
 				double angle = double.Parse (tokens[36]);
 				double velocityX = double.Parse (tokens[37]);
 				double velocityY = double.Parse (tokens[38]);
 				double angleVelocity = double.Parse (tokens[39]);
 				
-				
+				bool hasFlag = false;
 				//convert flag status to bool
-					
+				if(flag != FlagColor.None)
+				{
+					hasFlag = true;	
+				}
+				
+				
 				//convert status to enum
 				TANK_STATUS enumStatus = TANK_STATUS.ALIVE;
 				if(status == "alive")
 				{
-					enumStatus = TANK_STATUS.DEAD;
+					enumStatus = TANK_STATUS.ALIVE;
 				}
 				else if(status == "dead")
 				{
@@ -110,15 +127,9 @@ namespace bzrflags
 				//create tank, add it to myTanks
 				Tank tempTank = new Tank()
 				{
+					_isEnemy = false,
 					_index = tankIndex,
 					_callsign = callsign,
-					//TODO: connection still NEEDED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-					
-					
-					
-					
-					//TODO: flag status still needed!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-					
 					_status = enumStatus,
 					_shotsAvailable = shotsAvailable,
 					_timeToReload = timeToReload,
@@ -127,14 +138,86 @@ namespace bzrflags
 					_angle = angle,
 					_velocityX = velocityX,
 					_velocityY = velocityY,
-					_angelVelocity = angleVelocity
+					_angelVelocity = angleVelocity,
+					_hasFlag = hasFlag
 					
 				};
 				
+				myTanks.Add(tempTank);
 				
 			}
 		return myTanks;
 	}
+		
+		
+		public static List<Tank> createEnemyTanks(string rawEnemyTankData)
+		{
+			List<Tank> myTanks = new List<Tank>();
+			
+			string[] splitTankData = rawEnemyTankData.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+			
+			foreach(string individualTankData in splitTankData)
+			{
+				if(!individualTankData.StartsWith("othertank"))
+					continue;
+				
+				string[] tokens = individualTankData.Split(null);
+				
+				//othertank [callsign] [color] [status] [flag] [x] [y] [angle]
+				string callsign = tokens[1];
+				string color = tokens[2];
+				string status = tokens[3];
+				FlagColor flag = Flag.ParseFlagColor(tokens[4]);
+				double xPos = double.Parse(tokens[5]);
+				double yPos = double.Parse (tokens[6]);
+				double angle = double.Parse (tokens[7]);
+				
+				bool hasFlag = false;
+				//convert flag status to bool
+				if(flag != FlagColor.None)
+				{
+					hasFlag = true;	
+				}
+				
+				
+				//convert status to enum
+				TANK_STATUS enumStatus = TANK_STATUS.ALIVE;
+				if(status == "alive")
+				{
+					enumStatus = TANK_STATUS.ALIVE;
+				}
+				else if(status == "dead")
+				{
+					enumStatus = TANK_STATUS.DEAD;
+				}
+							
+				//create tank, add it to myTanks
+				Tank tempTank = new Tank()
+				{
+					
+					_isEnemy = true,
+					_callsign = callsign,
+					_status = enumStatus,
+					_xPosition = xPos,
+					_yPosition = yPos,
+					_angle = angle,
+					_hasFlag = hasFlag
+					
+				};
+				
+				myTanks.Add(tempTank);
+				
+				
+			}
+			
+			
+			
+			
+			
+			
+			return myTanks;
+			
+		}
 		
 		
 		

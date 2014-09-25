@@ -1,55 +1,38 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace bzrflags
 {
 	class MainClass
 	{
+		private static int _index;
+		
 		public static void Main (string[] args)
-		{
-			/*
-			TelnetConnection connection = new TelnetConnection(50103);
-			connection.ReceiveMessage();
-			string response = connection.SendMessage("agent 1");
-			string command;
-			while(true)
+		{			
+			int port = 0;
+			if(args.Length > 0 && int.TryParse(args[0], out port))
 			{
-				Console.Out.Write("Input a command: ");
-				command = Console.In.ReadLine();
-				connection.SendMessage(command);
-				Console.Out.WriteLine();
-				Console.Out.WriteLine(connection.ReceiveMessage());
+				TelnetConnection.setPort(port);
 			}
-			*/
+			else
+			{
+				TelnetConnection.setPort(59877);
+			}
 			
+			_index = 0;
+			Task[] tasks = new Task[10];
+			for(int i = 0; i < 10; i++ )
+			{
+				tasks[i] = Task.Factory.StartNew(() =>
+				{
+					PFAgent pf = new PFAgent(_index);
+					pf.runAgent();
+					_index++;
+				});
+			}
 			
-			
-//			PFAgent pf = new PFAgent(50103,1);
-//			pf.populateTanks();
-	
-			TelnetConnection connection = new TelnetConnection(59550);
-			connection.SendMessage("agent 1", false);
-			string constants = connection.SendMessage("constants", true);
-			Constants myConstants = new Constants(constants);
-			string obstacles = connection.SendMessage("obstacles", true);
-			ObstacleCollection obs = new ObstacleCollection(obstacles);
-			string flags = connection.SendMessage("flags", true);
-			FlagCollection flagCollection = new FlagCollection(flags);
-			List<PotentialField> allFields = new List<PotentialField>();
-			allFields.AddRange(obs.ObstacleFields);
-			allFields.Add (flagCollection.GetFieldForNearestFlag(new Vector(370.0, 0.0)));
-			PotentialFieldsCollection fields = new PotentialFieldsCollection(allFields);
-//			List<PotentialField> obstacleFields = ObstacleCollection.GetFieldsForObstacles(obstacles);
-//			string flags = connection.SendMessage("flags", true);
-//			List<PotentialField> flagFields = Flags.GetFlagFields(flags, "blue");
-//			PotentialFieldsCollection collection = new PotentialFieldsCollection(flagFields);
-//			List<PotentialField> manualFields = new List<PotentialField>();
-//			manualFields.Add(new RandomField(0.0, 0.0, 0.0, 0.1, 0.0));
-//			//manualFields.Add(new AttractField(0.0, 370.0, 1.0, 0.1, 300));
-//			//collection.PotentialFields = manualFields;
-//			collection.Fields.AddRange(manualFields);
-//			//collection.PotentialFields.AddRange(flagFields);
-			GnuPlotGenerator.PlotMyFields("fields", fields);
+			Task.WaitAll(tasks);
 		}
 	}
 }

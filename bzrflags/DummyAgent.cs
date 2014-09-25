@@ -7,12 +7,11 @@ namespace bzrflags
 class DummyAgent
 {
 
-    private static TelnetConnection connection;
-
-        public void runAgent(int agentNumber, int socketNumber)
+        public void runAgent(int agentNumber)
         {
-                connection = new TelnetConnection(socketNumber);
-                string response = connection.SendMessage("agent 1", false);
+				
+				//new TelnetConnection(socketNumber);
+                string response = TelnetConnection.Connection.SendMessage("agent 1", false);
 
                 Random rand = new Random();
 
@@ -26,16 +25,16 @@ class DummyAgent
                         int timeToWait = rand.Next(3000,8000);
 						int timeToShoot = rand.Next(1500,2000);	
 				
-                        Console.Out.WriteLine (connection.SendMessage("speed " + agentNumber +" 1", true));
+                        Console.Out.WriteLine (TelnetConnection.Connection.SendMessage("speed " + agentNumber +" 1", true));
 						System.Threading.Thread.Sleep(timeToWait);
-                        Console.Out.WriteLine (connection.SendMessage("speed " + agentNumber +" 0", true));
+                        Console.Out.WriteLine (TelnetConnection.Connection.SendMessage("speed " + agentNumber +" 0", true));
 
-                        Console.Out.WriteLine (connection.SendMessage("angvel " + agentNumber +" 1", true));
+                        Console.Out.WriteLine (TelnetConnection.Connection.SendMessage("angvel " + agentNumber +" 1", true));
                         System.Threading.Thread.Sleep(2000);
-                        Console.Out.WriteLine (connection.SendMessage("angvel " + agentNumber +" 0", true));
+                        Console.Out.WriteLine (TelnetConnection.Connection.SendMessage("angvel " + agentNumber +" 0", true));
 				
 						//System.Threading.Thread.Sleep(timeToShoot);
-						Console.Out.WriteLine (connection.SendMessage("shoot " + agentNumber, true));
+						Console.Out.WriteLine (TelnetConnection.Connection.SendMessage("shoot " + agentNumber, true));
                 }
         }
 

@@ -8,25 +8,25 @@ namespace bzrflags
 	{
 		public List<Flag> Flags { get; set; }
 		
-		public Flag GetNearestFlag(Vector v)
+		public Flag GetNearestFlag(Vector v, FlagColor myColor)
 		{
-			double greatestDistance = 0.0;
+			double shortestDistance = double.MaxValue;
 			Flag nearest = null;
 			foreach (Flag flag in Flags)
 			{
 				double distance = Vector.FindDistance(v, flag.Location);
-				if(distance > greatestDistance)
+				if(distance < shortestDistance && flag.Color != myColor)
 				{
 					nearest = flag;
-					greatestDistance = distance;
+					shortestDistance = distance;
 				}
 			}
 			return nearest;
 		}
 		
-		public PotentialField GetFieldForNearestFlag(Vector v)
+		public PotentialField GetFieldForNearestFlag(Vector v, FlagColor myColor)
 		{
-			return GetNearestFlag(v).GetFlagField();
+			return GetNearestFlag(v, myColor).GetFlagField();
 		}
 		
 		public FlagCollection(string flagDescription)

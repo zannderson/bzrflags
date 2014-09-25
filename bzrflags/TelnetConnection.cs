@@ -14,13 +14,22 @@ namespace bzrflags
 		private NetworkStream _stream;
 		private StreamReader _reader;
 		
-		public TelnetConnection (int port)
+		private static TelnetConnection _connection;
+		private static int _port;
+		
+		private TelnetConnection ()
 		{
-			_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-			_client = new TcpClient("127.0.0.1", port);
+			//_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			_client = new TcpClient("127.0.0.1", _port);
 			_stream = _client.GetStream();
 			_reader = new StreamReader(_stream, Encoding.ASCII);
 			string bzrobots = ReceiveMessage();
+			SendMessage("agent 1", false);
+		}
+		
+		public static void setPort(int port)
+		{
+			_port = port;
 		}
 		
 		public string SendMessage(string message, bool receive)
@@ -48,12 +57,37 @@ namespace bzrflags
 		public string ReceiveMessage()
 		{
 			try
-			{
-				//return _reader.ReadLine();
-				Thread.Sleep(50);
-				byte[] message = new byte[1024];
-				_stream.Read(message, 0, message.Length);
-				return Encoding.ASCII.GetString(message);
+			{		
+				bool inAMessage = false;
+				StringBuilder sb = new StringBuilder();
+				int lineCounter = 1;
+				while(!_stream.DataAvailable)
+				{
+					Thread.Sleep (5);
+				}
+				while(_stream.DataAvailable)
+				{
+					inAMessage = true;
+					while(inAMessage)
+					{
+						string line = _reader.ReadLine();
+						if(line.StartsWith("ack"))
+						{
+							inAMessage = true;
+						}
+						if(line.StartsWith("ok") || line.StartsWith("end") || line.StartsWith("bzrobots") || line.StartsWith("fail"))
+						{
+							inAMessage = false;
+						}
+						if(inAMessage)
+						{
+							sb.Append(line);
+							sb.Append ("\n");
+						}
+						lineCounter++;
+					}
+				}
+				return sb.ToString();
 			}
 			catch (Exception ex)
 			{
@@ -73,6 +107,18 @@ namespace bzrflags
 		}
 		
 		#endregion
+		
+		public static TelnetConnection Connection
+		{
+			get
+			{
+				if(_connection == null)
+				{
+					_connection = new TelnetConnection();
+				}
+				return _connection;
+			}
+		}
 	}
 }
 

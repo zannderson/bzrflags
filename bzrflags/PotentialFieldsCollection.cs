@@ -12,12 +12,12 @@ namespace bzrflags
 			Fields = fields;
 		}
 		
-		public Vector GetCombinedVectorForPoint(double x, double y)
+		public Vector GetCombinedVectorForPoint(Vector point)
 		{
 			Vector sum = new Vector(0.0, 0.0);
 			foreach (PotentialField field in Fields)
 			{
-				Vector currentVector = field.GetVectorForMapPoint(x, y);
+				Vector currentVector = field.GetVectorForMapPoint(point.X, point.Y);
 				sum += currentVector;
 			}
 			

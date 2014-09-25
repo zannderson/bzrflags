@@ -27,7 +27,7 @@ namespace bzrflags
 			{
 				for(double yVal = -400.0; yVal <= 400.0; yVal += increment)
 				{
-					Vector theVector = fields.GetCombinedVectorForPoint(xVal, yVal);
+					Vector theVector = fields.GetCombinedVectorForPoint(new Vector(xVal, yVal));
 					sb.AppendLine(xVal + " " + yVal + " " + theVector.X + " " + theVector.Y);
 				}
 			}

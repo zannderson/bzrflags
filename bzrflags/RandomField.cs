@@ -17,6 +17,10 @@ namespace bzrflags
 			}
 		}
 		
+		public RandomField() : base(0.0, 0.0, 0.0, 1, 0.0)
+		{
+		}
+		
 		public RandomField(double x, double y, double radius, double strength, double spread) : base(x, y, radius, strength, spread)
 		{
 		}
