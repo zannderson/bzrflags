@@ -25,11 +25,14 @@ namespace bzrflags
 			string otherTanksString = TelnetConnection.Connection.SendMessage("othertanks", true);
 			string obstaclesString = TelnetConnection.Connection.SendMessage("obstacles", true);
 			string flagsString = TelnetConnection.Connection.SendMessage("flags", true);
+			string baseString = TelnetConnection.Connection.SendMessage("bases", true);
 			
 			Constants constants = new Constants(constantString);
 			ObstacleCollection obstacles = new ObstacleCollection(obstaclesString);
 			FlagCollection flags = new FlagCollection(flagsString);
 			List<Tank> myTanks = populateTanks();
+			BaseCollection bases = new BaseCollection(baseString);
+			
 			
 			Tank me = null;
 			foreach (Tank tank in myTanks)

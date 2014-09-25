@@ -17,7 +17,7 @@ namespace bzrflags
 			}
 			else
 			{
-				TelnetConnection.setPort(59877);
+				TelnetConnection.setPort(50103);
 			}
 			
 			_index = 0;

@@ -54,6 +54,8 @@
     <Compile Include="LineSegment.cs" />
     <Compile Include="FlagCollection.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Base.cs" />
+    <Compile Include="BaseCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
