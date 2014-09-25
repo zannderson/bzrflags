@@ -45,8 +45,6 @@ namespace bzrflags
 		{
 			double targetAngle = Math.Atan2(target.Y - current.Y, target.X - current.X);
 			double relativeAngle = NormalizeAngle(targetAngle - _angle);
-			double angvel = 0.0;
-			Console.Out.WriteLine("My Angle: " + _angle + " Target Angle: " + targetAngle + " Relative Angle: " + relativeAngle);
 		 	TelnetConnection.Connection.SendMessage("speed " + _index  + " 1 ", true);
 			TelnetConnection.Connection.SendMessage("angvel " + _index + " " + relativeAngle.ToString(), true);
 			TelnetConnection.Connection.SendMessage("shoot " + _index, true);

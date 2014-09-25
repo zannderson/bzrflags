@@ -6,6 +6,7 @@ namespace bzrflags
 	public class PFAgent
 	{		
 		private int _agentNumber;
+		private bool _fieldsPlotted = false;
 		
 		public void runAgent()
 		{
@@ -19,20 +20,8 @@ namespace bzrflags
 		private void tick()
 		{
 			Console.Out.WriteLine("TICK!");
-			bool fieldsPlotted = false;
 			
-			string constantString = TelnetConnection.Connection.SendMessage("constants", true);
-			string otherTanksString = TelnetConnection.Connection.SendMessage("othertanks", true);
-			string obstaclesString = TelnetConnection.Connection.SendMessage("obstacles", true);
-			string flagsString = TelnetConnection.Connection.SendMessage("flags", true);
-			string baseString = TelnetConnection.Connection.SendMessage("bases", true);
-			
-			Constants constants = new Constants(constantString);
-			ObstacleCollection obstacles = new ObstacleCollection(obstaclesString);
-			FlagCollection flags = new FlagCollection(flagsString);
-			List<Tank> myTanks = populateTanks();
-			BaseCollection bases = new BaseCollection(baseString);
-			
+			List<Tank> myTanks = populateTanks();			
 			
 			Tank me = null;
 			foreach (Tank tank in myTanks)
@@ -47,22 +36,42 @@ namespace bzrflags
 				throw new Exception("Where am I??  I can't find myself!!");
 			}
 			
-			Vector myPosition = new Vector(me._xPosition, me._yPosition);
+			Console.Out.WriteLine("Tank: " + _agentNumber + " Location: " + me._xPosition + ", " + me._yPosition);
 			
+			string constantString = TelnetConnection.Connection.SendMessage("constants", true);
+			Constants constants = new Constants(constantString);
+			string obstaclesString = TelnetConnection.Connection.SendMessage("obstacles", true);
+			ObstacleCollection obstacles = new ObstacleCollection(obstaclesString);			
 			List<PotentialField> fields = new List<PotentialField>();
 			fields.Add(new RandomField());
-			fields.AddRange(obstacles.ObstacleFields);
-			fields.Add (flags.GetFieldForNearestFlag(myPosition, constants.MyColor));
+			fields.AddRange(obstacles.ObstacleFields);	
+			Vector myPosition = new Vector(me._xPosition, me._yPosition);
+			
+			if(me._hasFlag)
+			{
+				//get bases
+				string baseString = TelnetConnection.Connection.SendMessage("bases", true);
+				BaseCollection bases = new BaseCollection(baseString);
+				fields.Add(bases.GetFieldForMyBase(myPosition, constants.MyColor));
+				//get my base
+				//set up field for base
+			}
+			else
+			{
+				string flagsString = TelnetConnection.Connection.SendMessage("flags", true);			
+				FlagCollection flags = new FlagCollection(flagsString);							
+				fields.Add (flags.GetFieldForNearestFlag(myPosition, constants.MyColor));
+			}			
 			
 			PotentialFieldsCollection fieldCollection = new PotentialFieldsCollection(fields);
 			Vector delta = fieldCollection.GetCombinedVectorForPoint(myPosition);
 			Vector moveHere = myPosition + delta;
 			
 			me.moveToPosition(myPosition, moveHere);
-			if(!fieldsPlotted)
+			if(!_fieldsPlotted)
 			{
-				GnuPlotGenerator.PlotMyFields("fields", fieldCollection);
-				fieldsPlotted = true;
+				GnuPlotGenerator.PlotMyFields("fields", fieldCollection, obstacles);
+				_fieldsPlotted = true;
 			}
 		}
 		

@@ -26,6 +26,25 @@ namespace bzrflags
 				}
 			}
 		}
+		
+		public Base GetMyBase(Vector v, FlagColor myColor)
+		{
+			double shortestDistance = double.MaxValue;
+			Base myBase = null;
+			foreach (Base theBase in Bases)
+			{
+				if(theBase.Color == myColor)
+				{
+					myBase = theBase;
+				}
+			}
+			return myBase;
+		}
+		
+		public PotentialField GetFieldForMyBase(Vector v, FlagColor myColor)
+		{
+			return GetMyBase(v, myColor).GetBaseField();
+		}
 	}
 }
 

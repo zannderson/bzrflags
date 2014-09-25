@@ -45,7 +45,7 @@ namespace bzrflags
 			{
 				for (double yPoint = GetYStart(); yPoint <= GetYEnd(); yPoint += INCREMENT)
 				{
-					fields.Add(new TangentialField(xPoint, yPoint, 20, 1, 5));
+					fields.Add(new TangentialField(xPoint, yPoint, 1, 3, 5));
 				}
 			}
 			

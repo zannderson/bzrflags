@@ -1,26 +1,19 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="bzrflags/PFAgent.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="bzrflags/Main.cs">
     <Files>
-      <File FileName="bzrflags/Main.cs" Line="30" Column="1" />
-      <File FileName="bzrflags/TelnetConnection.cs" Line="62" Column="39" />
-      <File FileName="bzrflags/IPotentialField.cs" Line="11" Column="12" />
-      <File FileName="bzrflags/Vector.cs" Line="8" Column="16" />
-      <File FileName="bzrflags/AttractField.cs" Line="14" Column="25" />
-      <File FileName="bzrflags/RejectField.cs" Line="13" Column="4" />
-      <File FileName="bzrflags/PotentialFieldsCollection.cs" Line="8" Column="60" />
-      <File FileName="bzrflags/TangentialField.cs" Line="1" Column="1" />
-      <File FileName="bzrflags/AssemblyInfo.cs" Line="1" Column="1" />
-      <File FileName="bzrflags/Tank.cs" Line="145" Column="1" />
-      <File FileName="bzrflags/DummyAgent.cs" Line="13" Column="10" />
-      <File FileName="bzrflags/GnuPlotGenerator.cs" Line="1" Column="1" />
-      <File FileName="bzrflags/PFAgent.cs" Line="30" Column="11" />
-      <File FileName="bzrflags/Flags.cs" Line="1" Column="1" />
-      <File FileName="bzrflags/Flag.cs" Line="1" Column="1" />
+      <File FileName="bzrflags/Main.cs" Line="73" Column="11" />
+      <File FileName="bzrflags/TelnetConnection.cs" Line="82" Column="8" />
+      <File FileName="bzrflags/PotentialFieldsCollection.cs" Line="6" Column="15" />
+      <File FileName="bzrflags/GnuPlotGenerator.cs" Line="25" Column="54" />
+      <File FileName="bzrflags/Flag.cs" Line="30" Column="77" />
       <File FileName="bzrflags/Obstacle.cs" Line="1" Column="1" />
-      <File FileName="bzrflags/LineSegment.cs" Line="1" Column="1" />
-      <File FileName="../Disassembly" />
-      <File FileName="bzrflags/ObstacleCollection.cs" Line="15" Column="8" />
+      <File FileName="bzrflags/PFAgent.cs" Line="36" Column="64" />
+      <File FileName="bzrflags/BaseCollection.cs" Line="32" Column="1" />
+      <File FileName="bzrflags/Base.cs" Line="28" Column="50" />
+      <File FileName="bzrflags/FlagCollection.cs" Line="9" Column="40" />
+      <File FileName="bzrflags/LineSegment.cs" Line="17" Column="12" />
+      <File FileName="bzrflags/Tank.cs" Line="14" Column="15" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

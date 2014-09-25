@@ -11,13 +11,34 @@ namespace bzrflags
 			
 		}
 		
-		public static void PlotMyFields(string filename, PotentialFieldsCollection fields)
+		public static void PlotMyFields(string filename, PotentialFieldsCollection fields, ObstacleCollection obstacles)
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.AppendLine ("set xrange [-400.0: 400.0]");
 			sb.AppendLine ("set yrange [-400.0: 400.0]");
 			sb.AppendLine ("unset key");
 			sb.AppendLine ("set size square");
+			
+			if(obstacles != null)
+			{
+				sb.AppendLine("unset arrow");
+				foreach (Obstacle obstacle in obstacles.Obstacles)
+				{
+					foreach (var segment in obstacle.Lines)
+					{
+						sb.Append ("set arrow from ");
+						sb.Append(segment.V1.X);
+						sb.Append(", ");
+						sb.Append(segment.V1.Y);
+						sb.Append(" to ");
+						sb.Append(segment.V2.X);
+						sb.Append(", ");
+						sb.Append(segment.V2.Y);
+						sb.Append(" nohead lt 3");
+						sb.AppendLine();
+					}				
+				}
+			}
 			
 			sb.AppendLine("plot '-' with vectors head");
 			

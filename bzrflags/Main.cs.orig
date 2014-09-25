@@ -1,64 +1,91 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace bzrflags
 {
 	class MainClass
 	{
+		private static int _index;
+		
 		public static void Main (string[] args)
-		{
-			/*
-			TelnetConnection connection = new TelnetConnection(50103);
-			connection.ReceiveMessage();
-			string response = connection.SendMessage("agent 1");
-			string command;
-			while(true)
+		{			
+			int port = 0;
+			if(args.Length > 0 && int.TryParse(args[0], out port))
 			{
-				Console.Out.Write("Input a command: ");
-				command = Console.In.ReadLine();
-				connection.SendMessage(command);
-				Console.Out.WriteLine();
-				Console.Out.WriteLine(connection.ReceiveMessage());
+				TelnetConnection.setPort(port);
 			}
-			*/
-			
-<<<<<<< HEAD
-			
+			else
+			{
+<<<<<<< Updated upstream
+				TelnetConnection.setPort(50103);
 =======
-			TelnetConnection.setPort(50103);
-			//DummyAgent agent = new DummyAgent();
-			//agent.runAgent(0);
+				TelnetConnection.setPort(48728);
+>>>>>>> Stashed changes
+			}
 			
-			PFAgent pf = new PFAgent(0);
-			pf.runAgent();
->>>>>>> c6fb0a3deb65b22a711bf8d25112750ae4d7719c
+			if(args.Length > 1)
+			{
+				switch(args[1])
+				{
+					case "pf":
+//					_index = 0;
+//			Task[] tasks = new Task[10];
+//			for(int i = 0; i < 10; i++ )
+//			{
+//				tasks[i] = Task.Factory.StartNew(() =>
+//				{
+//							PFAgent pf = new PFAgent(_index);
+//							pf.runAgent();
+//							_index++;
+//				});
+//			}
+//			
+//			Task.WaitAll(tasks);
+//						PFAgent pf = new PFAgent(0);
+//						pf.runAgent();					
+					break;
+					case "dumb":
+						DummyAgent dummy = new DummyAgent();
+						dummy.runAgent(0);
+					break;
+				}
+			}
+			else
+			{
+				
+			}
 			
-//			PFAgent pf = new PFAgent(50103,1);
-//			pf.populateTanks();
-	
-			TelnetConnection connection = new TelnetConnection(59550);
-			connection.SendMessage("agent 1", false);
-			string constants = connection.SendMessage("constants", true);
-			Constants myConstants = new Constants(constants);
-			string obstacles = connection.SendMessage("obstacles", true);
-			ObstacleCollection obs = new ObstacleCollection(obstacles);
-			string flags = connection.SendMessage("flags", true);
-			FlagCollection flagCollection = new FlagCollection(flags);
-			List<PotentialField> allFields = new List<PotentialField>();
-			allFields.AddRange(obs.ObstacleFields);
-			allFields.Add (flagCollection.GetFieldForNearestFlag(new Vector(370.0, 0.0)));
-			PotentialFieldsCollection fields = new PotentialFieldsCollection(allFields);
-//			List<PotentialField> obstacleFields = ObstacleCollection.GetFieldsForObstacles(obstacles);
-//			string flags = connection.SendMessage("flags", true);
-//			List<PotentialField> flagFields = Flags.GetFlagFields(flags, "blue");
-//			PotentialFieldsCollection collection = new PotentialFieldsCollection(flagFields);
-//			List<PotentialField> manualFields = new List<PotentialField>();
-//			manualFields.Add(new RandomField(0.0, 0.0, 0.0, 0.1, 0.0));
-//			//manualFields.Add(new AttractField(0.0, 370.0, 1.0, 0.1, 300));
-//			//collection.PotentialFields = manualFields;
-//			collection.Fields.AddRange(manualFields);
-//			//collection.PotentialFields.AddRange(flagFields);
-			GnuPlotGenerator.PlotMyFields("fields", fields);
+//			Task[] tasks = new Task[2];
+//			tasks[0] = Task.Factory.StartNew(() => 
+//			{
+////				DummyAgent dummy = new DummyAgent();
+////				dummy.runAgent(4);
+//				PFAgent pf = new PFAgent(2);
+//				pf.runAgent();				
+//			});
+//			tasks[1] = Task.Factory.StartNew (() =>
+//			{
+////				DummyAgent dummy2 = new DummyAgent();
+////				dummy2.runAgent(5);
+//				PFAgent pf2 = new PFAgent(3);
+//				pf2.runAgent();
+//			});
+//			
+//			Task.WaitAll(tasks);
+			
+			AttractField attract = new AttractField(0.0, 0.0, 1.0, 0.5, 100);
+			RejectField reject = new RejectField(100.0, -250.0, 1.0, 0.5, 100);
+			PotentialFieldsCollection fields = new PotentialFieldsCollection(new List<PotentialField> { attract, reject });
+			GnuPlotGenerator.PlotMyFields("attract_reject", fields, null);
+		}
+		
+		public static void WriteObstacles()
+		{
+			string obstaclesString = TelnetConnection.Connection.SendMessage("obstacles", true);
+			ObstacleCollection obstacles = new ObstacleCollection(obstaclesString);
+			PotentialFieldsCollection fields = new PotentialFieldsCollection(obstacles.ObstacleFields);
+			GnuPlotGenerator.PlotMyFields("obstacles", fields, obstacles);
 		}
 	}
 }

@@ -6,8 +6,8 @@ namespace bzrflags
 	public class Base
 	{
 		public List<Vector> _Vertices { get; set; }
-		Vector _center {get;set;}
-		FlagColor _baseColor;
+		public Vector Center {get;set;}
+		public FlagColor Color { get; set; }
 		
 		public Base ()
 		{
@@ -25,7 +25,7 @@ namespace bzrflags
 			
 			string[] parts = rawBaseData.Split(' ');
 			
-
+			newBase.Color = Flag.ParseFlagColor(parts[1]);
 				
 			Vector p1 = new Vector(double.Parse(parts[2]),double.Parse(parts[3]));
 			Vector p2 = new Vector(double.Parse(parts[4]),double.Parse(parts[5]));
@@ -35,7 +35,7 @@ namespace bzrflags
 			double xCenter = (p1.X + p3.X)/2;
 			double yCenter = (p1.Y + p3.Y)/2;
 			
-			newBase._center = new Vector(xCenter,yCenter);
+			newBase.Center = new Vector(xCenter,yCenter);
 			newBase._Vertices.Add(p1);
 			newBase._Vertices.Add(p2);
 			newBase._Vertices.Add(p3);
@@ -45,6 +45,11 @@ namespace bzrflags
 			
 			
 			return newBase;
+		}
+		
+		public PotentialField GetBaseField()
+		{
+			return new AttractField(Center.X, Center.Y, 1.0, 0.1, 400);
 		}
 	}
 }
